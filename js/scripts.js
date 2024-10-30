@@ -8,8 +8,17 @@ const gameBoard = (function () {
             }
         }
     }
+    const resetBoard = function () {
+        for (let x=0; x<3; x++){
+            for (let y=0; y<3; y++){
+                squares[x][y] = null;
+            }
+        }
+        // Reset current player to X
+        gameProgress.currentPlayer[0] = 'x';
+    }
 
-    return {squares, buildBoard};
+    return {squares, buildBoard, resetBoard};
 })();
 
 const gameProgress = (function () {
