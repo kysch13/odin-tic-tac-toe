@@ -45,6 +45,7 @@ const gameProgress = (function () {
 
             ) {
                 console.log(`${marker} wins!!`);
+                gameBoard.resetBoard();
             }
         }
     }
