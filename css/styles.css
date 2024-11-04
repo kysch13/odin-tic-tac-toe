@@ -1,5 +1,42 @@
 body {
     margin: 0;
     height: 100vh;
-    background-color: #333;
+    background-color: #2a1b40;
+    color: #b95a90;
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
 }
+
+h1 {
+    font-weight: 500;
+    letter-spacing: 20px;
+    margin-right: -20px;
+}
+
+#board {
+    background-color: #211534;
+    padding: 20px;
+}
+
+.board-grid {
+    display: grid;
+    width: 400px;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+
+}
+
+.board-cell {
+    outline: 1px solid #ffffff55;
+    aspect-ratio: 1;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.board-cell:hover {
+    outline: 1px solid #ffffff;
+    background-color: #2d2042;
+}
+
+
