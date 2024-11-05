@@ -11,6 +11,7 @@ h1 {
     font-weight: 500;
     letter-spacing: 20px;
     margin-right: -20px;
+    filter: drop-shadow(0 0 3px #de5ca677);
 }
 
 #board {
@@ -35,8 +36,10 @@ h1 {
 }
 
 .board-cell:hover {
-    outline: 1px solid #ffffff;
+    outline: 1px solid #ff79c577;
     background-color: #2d2042;
+    filter: drop-shadow(0 0 3px #de5ca6);
+
 }
 
 

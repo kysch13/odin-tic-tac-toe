@@ -1,4 +1,5 @@
 const gameBoard = (function () {
+    const board = document.getElementById('board');
     const squares = [];
     const buildBoard = function () {
         for (let x=0; x<3; x++){
@@ -18,7 +19,7 @@ const gameBoard = (function () {
         gameProgress.currentPlayer[0] = 'x';
     }
 
-    return {squares, buildBoard, resetBoard};
+    return {squares, buildBoard, resetBoard, board};
 })();
 
 const gameProgress = (function () {
@@ -46,7 +47,21 @@ const gameProgress = (function () {
             ) {
                 console.log(`${marker} wins!!`);
                 gameBoard.resetBoard();
+                return marker;
+            } else {
+                // If no win condition is present, check for unplayed squares. If no win, and no unplayed squares, return a draw
+                for (let i=0; i<3; i++) {
+                    for (let j=0; j<3; j++) {
+                        if (gameBoard.squares[i][j] == null) {
+                            return;
+                        }
+                    }
+                }
+                console.log('Draw');
+                gameBoard.resetBoard();
+                return 'Draw';
             }
+
         }
     }
     return {placeMarker, currentPlayer};
@@ -60,3 +75,10 @@ gameBoard.buildBoard();
 const player1 = createPlayer('Me');
 const player2 = createPlayer('Mac');
 console.log(gameBoard.squares);
+
+
+gameBoard.board.addEventListener('click', (e) => {
+    e.target.innerText = gameProgress.currentPlayer;
+    gameProgress.placeMarker(e.target.dataset.x, e.target.dataset.y, gameProgress.currentPlayer);
+    
+})
