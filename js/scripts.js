@@ -42,7 +42,6 @@ const gameProgress = (function () {
         }   
     }
    const checkWin = function (marker) { {
-
         console.log(marker);
             if ((gameBoard.squares[0][0] == marker && gameBoard.squares[0][1] == marker && gameBoard.squares[0][2] == marker) ||
                 (gameBoard.squares[1][0] == marker && gameBoard.squares[1][1] == marker && gameBoard.squares[1][2] == marker) ||
@@ -55,9 +54,8 @@ const gameProgress = (function () {
 
             ) {
                 console.log(`${marker} wins!!`);
-                gameBoard.modal.classList.add('active');
-                gameBoard.modalWindow.innerText = `${marker} wins!!`;
-                gameBoard.resetBoard();
+                gameProgress.endGame(`${marker} wins!!`);
+                //gameBoard.resetBoard();
                 return marker;
             } else {
                 // If no win condition is present, check for unplayed squares. If no win, and no unplayed squares, return a draw
@@ -68,15 +66,28 @@ const gameProgress = (function () {
                         }
                     }
                 }
-                gameBoard.resetBoard();
-                gameBoard.modal.classList.add('active');
-                gameBoard.modalWindow.innerText = `It's a draw.`;
+                //gameBoard.resetBoard();
+                gameProgress.endGame(`It's a draw.`);
                 return 'Draw';
             }
 
         }
     }
-    return {placeMarker, currentPlayer};
+    const endGame = function (modalMsg) {
+        gameBoard.modal.classList.add('active');
+        gameBoard.modalWindow.innerText = modalMsg;
+        
+        // set each cell/square to played so that play can't continue without reset
+        gameBoard.boardCells.forEach(cell => {
+            cell.dataset.played = "true";
+        });
+        for (let x=0; x<3; x++){
+            for (let y=0; y<3; y++){
+                gameBoard.squares[x][y] = '-';
+            }
+        }
+    }
+    return {placeMarker, currentPlayer, endGame};
 })();
 
 gameBoard.board.addEventListener('click', (e) => {
