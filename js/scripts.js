@@ -1,6 +1,8 @@
 const gameBoard = (function () {
     const board = document.getElementById('board');
     const boardCells = document.querySelectorAll('.board-cell');
+    const modal = document.querySelector('.modal');
+    const modalWindow = document.querySelector('.modal-window > div');
     const squares = [];
     const buildBoard = function () {
         for (let x=0; x<3; x++){
@@ -20,7 +22,7 @@ const gameBoard = (function () {
         gameProgress.currentPlayer[0] = 'x';
     }
 
-    return {squares, buildBoard, resetBoard, board, boardCells};
+    return {squares, buildBoard, resetBoard, board, boardCells, modal, modalWindow};
 })();
 
 const gameProgress = (function () {
@@ -53,6 +55,8 @@ const gameProgress = (function () {
 
             ) {
                 console.log(`${marker} wins!!`);
+                gameBoard.modal.classList.add('active');
+                gameBoard.modalWindow.innerText = `${marker} wins!!`;
                 gameBoard.resetBoard();
                 return marker;
             } else {
@@ -65,6 +69,8 @@ const gameProgress = (function () {
                     }
                 }
                 gameBoard.resetBoard();
+                gameBoard.modal.classList.add('active');
+                gameBoard.modalWindow.innerText = `It's a draw.`;
                 return 'Draw';
             }
 
@@ -76,6 +82,13 @@ const gameProgress = (function () {
 gameBoard.board.addEventListener('click', (e) => {
     if (e.target.dataset.x != undefined) {
         gameProgress.placeMarker(e.target.dataset.x, e.target.dataset.y, gameProgress.currentPlayer);
+    }
+})
+
+gameBoard.modal.addEventListener('click', (e) => {
+    console.log(e.target);
+    if (e.target.classList[0] == 'modal' || e.target.classList[0] == 'modal-close-btn') {
+        gameBoard.modal.classList.remove('active');
     }
 })
 
