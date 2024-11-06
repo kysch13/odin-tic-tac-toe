@@ -33,6 +33,11 @@ h1 {
     aspect-ratio: 1;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 100px;
 }
 
 .board-cell:hover {
@@ -40,6 +45,13 @@ h1 {
     background-color: #2d2042;
     filter: drop-shadow(0 0 3px #de5ca6);
 
+}
+
+.board-cell[data-played="true"], .board-cell[data-played="true"]:hover {
+    background-color: #1e142d;
+    outline: 1px solid #ffffff11;
+    cursor: default;
+    filter: none;
 }
 
 

@@ -1,5 +1,6 @@
 const gameBoard = (function () {
     const board = document.getElementById('board');
+    const boardCells = document.querySelectorAll('.board-cell');
     const squares = [];
     const buildBoard = function () {
         for (let x=0; x<3; x++){
@@ -19,21 +20,27 @@ const gameBoard = (function () {
         gameProgress.currentPlayer[0] = 'x';
     }
 
-    return {squares, buildBoard, resetBoard, board};
+    return {squares, buildBoard, resetBoard, board, boardCells};
 })();
 
 const gameProgress = (function () {
     const currentPlayer = ['x'];
-    const placeMarker = function (x, y, marker) {
+    const placeMarker = function (x, y) {
         if (gameBoard.squares[x][y] === null) {
-            gameBoard.squares[x][y] = marker;
-            checkWin(marker);
+            gameBoard.squares[x][y] = currentPlayer[0];
+            gameBoard.boardCells.forEach(cell => {
+                if (cell.dataset.x == x && cell.dataset.y == y) {
+                    cell.innerText = currentPlayer[0];
+                    cell.dataset.played = "true";
+                }
+            });
+            checkWin(currentPlayer[0]);
             //Switch to other player's turn
             currentPlayer[0] = currentPlayer[0] == 'x' ? 'o' : 'x';
-            
         }   
     }
-    const checkWin = function (marker) { {
+   const checkWin = function (marker) { {
+
         console.log(marker);
             if ((gameBoard.squares[0][0] == marker && gameBoard.squares[0][1] == marker && gameBoard.squares[0][2] == marker) ||
                 (gameBoard.squares[1][0] == marker && gameBoard.squares[1][1] == marker && gameBoard.squares[1][2] == marker) ||
@@ -57,7 +64,6 @@ const gameProgress = (function () {
                         }
                     }
                 }
-                console.log('Draw');
                 gameBoard.resetBoard();
                 return 'Draw';
             }
@@ -67,18 +73,10 @@ const gameProgress = (function () {
     return {placeMarker, currentPlayer};
 })();
 
-function createPlayer(name) {
-    return {name};
-}
+gameBoard.board.addEventListener('click', (e) => {
+    if (e.target.dataset.x != undefined) {
+        gameProgress.placeMarker(e.target.dataset.x, e.target.dataset.y, gameProgress.currentPlayer);
+    }
+})
 
 gameBoard.buildBoard();
-const player1 = createPlayer('Me');
-const player2 = createPlayer('Mac');
-console.log(gameBoard.squares);
-
-
-gameBoard.board.addEventListener('click', (e) => {
-    e.target.innerText = gameProgress.currentPlayer;
-    gameProgress.placeMarker(e.target.dataset.x, e.target.dataset.y, gameProgress.currentPlayer);
-    
-})
