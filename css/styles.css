@@ -54,6 +54,33 @@ h1 {
     filter: none;
 }
 
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+.primary-btn {
+    border: none;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #211534;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 25px;
+    cursor: pointer;
+    filter: drop-shadow(1px 1px 3px #33333377);
+}
+
+.primary-btn:hover {
+    background-color: #f9d0e8;
+    filter: drop-shadow(0 0 3px #de5ca6);
+
+}
+
 .modal, .modal-window {
     display: none;
 }

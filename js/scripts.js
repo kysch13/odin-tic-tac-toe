@@ -1,6 +1,7 @@
 const gameBoard = (function () {
     const board = document.getElementById('board');
     const boardCells = document.querySelectorAll('.board-cell');
+    const actionBar = document.querySelector('.actions');
     const modal = document.querySelector('.modal');
     const modalWindow = document.querySelector('.modal-window > div');
     const squares = [];
@@ -13,6 +14,10 @@ const gameBoard = (function () {
         }
     }
     const resetBoard = function () {
+        gameBoard.boardCells.forEach(cell => {
+            cell.dataset.played = "false";
+            cell.innerText = '';
+        });
         for (let x=0; x<3; x++){
             for (let y=0; y<3; y++){
                 squares[x][y] = null;
@@ -22,7 +27,7 @@ const gameBoard = (function () {
         gameProgress.currentPlayer[0] = 'x';
     }
 
-    return {squares, buildBoard, resetBoard, board, boardCells, modal, modalWindow};
+    return {squares, buildBoard, resetBoard, board, boardCells, modal, modalWindow, actionBar};
 })();
 
 const gameProgress = (function () {
@@ -100,6 +105,12 @@ gameBoard.modal.addEventListener('click', (e) => {
     console.log(e.target);
     if (e.target.classList[0] == 'modal' || e.target.classList[0] == 'modal-close-btn') {
         gameBoard.modal.classList.remove('active');
+    }
+})
+
+gameBoard.actionBar.addEventListener('click', (e) => {
+    if (e.target.dataset.action == 'reset') {
+        gameBoard.resetBoard();
     }
 })
 
