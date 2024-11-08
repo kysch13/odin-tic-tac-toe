@@ -25,26 +25,29 @@ const gameBoard = (function () {
             }
         }
         // Reset current player to X
-        gameProgress.currentPlayer[0] = 'x';
+        gameProgress.currentPlayer = 0;
+        console.log(gameProgress.players[gameProgress.currentPlayer].marker);
     }
 
     return {squares, buildBoard, resetBoard, board, boardCells, modal, modalWindow, actionBar, modalSettings};
 })();
 
 const gameProgress = (function () {
-    const currentPlayer = ['x'];
+    const players = [{marker: 'x', name: 'Player 1'}, {marker: 'o', name: 'Player 2'}];
+    let currentPlayer = 0;
     const placeMarker = function (x, y) {
         if (gameBoard.squares[x][y] === null) {
-            gameBoard.squares[x][y] = currentPlayer[0];
+            gameBoard.squares[x][y] = players[gameProgress.currentPlayer].marker;
             gameBoard.boardCells.forEach(cell => {
                 if (cell.dataset.x == x && cell.dataset.y == y) {
-                    cell.innerText = currentPlayer[0];
+                    cell.innerText = players[gameProgress.currentPlayer].marker;
                     cell.dataset.played = "true";
                 }
             });
-            checkWin(currentPlayer[0]);
+            
+            checkWin(players[gameProgress.currentPlayer].marker);
             //Switch to other player's turn
-            currentPlayer[0] = currentPlayer[0] == 'x' ? 'o' : 'x';
+            gameProgress.currentPlayer = gameProgress.currentPlayer == 0 ? 1 : 0;
         }   
     }
    const checkWin = function (marker) { {
@@ -59,8 +62,8 @@ const gameProgress = (function () {
                 (gameBoard.squares[2][0] == marker && gameBoard.squares[1][1] == marker && gameBoard.squares[0][2] == marker)
 
             ) {
-                console.log(`${marker} wins!!`);
-                gameProgress.endGame(`${marker} wins!!`);
+                console.log(`${players[gameProgress.currentPlayer].name} wins!!`);
+                gameProgress.endGame(`${players[gameProgress.currentPlayer].name} wins!!`);
                 //gameBoard.resetBoard();
                 return marker;
             } else {
@@ -93,12 +96,12 @@ const gameProgress = (function () {
             }
         }
     }
-    return {placeMarker, currentPlayer, endGame};
+    return {placeMarker, currentPlayer, endGame, players};
 })();
 
 gameBoard.board.addEventListener('click', (e) => {
     if (e.target.dataset.x != undefined) {
-        gameProgress.placeMarker(e.target.dataset.x, e.target.dataset.y, gameProgress.currentPlayer);
+        gameProgress.placeMarker(e.target.dataset.x, e.target.dataset.y);
     }
 })
 
@@ -114,7 +117,9 @@ gameBoard.modalSettings.addEventListener('click', (e) => {
     if (e.target.classList[0] == 'modal-settings' || e.target.dataset.action == 'close') {
         gameBoard.modalSettings.classList.remove('active');
     } else if (e.target.dataset.action == 'save') {
-        
+        gameProgress.players[0].name = document.getElementById('p1_name').value;
+        gameProgress.players[1].name = document.getElementById('p2_name').value;
+        gameBoard.modalSettings.classList.remove('active');
     }
 })
 
