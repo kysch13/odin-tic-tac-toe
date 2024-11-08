@@ -58,7 +58,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 12px;
     max-width: 300px;
     margin: 20px auto;
 }
@@ -78,7 +78,24 @@ h1 {
 .primary-btn:hover {
     background-color: #f9d0e8;
     filter: drop-shadow(0 0 3px #de5ca6);
+}
 
+.settings-btn {
+    background: #2a1b40;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    border-radius: 5;
+}
+
+.settings-btn:hover {
+    filter: drop-shadow(0 0 3px #de5ca6);
+}
+
+.settings-btn:hover img {
+    filter: brightness(0.75) sepia(2) hue-rotate(300deg);
 }
 
 .modal, .modal-window {
