@@ -102,7 +102,7 @@ h1 {
     display: none;
 }
 
-.modal.active {
+.modal.active, .modal-settings.active {
     position: fixed;
     top: 0;
     left: 0;
@@ -114,7 +114,7 @@ h1 {
     justify-content: center;
 }
 
-.modal.active .modal-window {
+.modal.active .modal-window, .modal-settings.active .modal-window {
     display: block;
     background: #f7f7f7;
     padding: 60px;
@@ -124,15 +124,64 @@ h1 {
     position: relative;
 }
 
-.modal.active .modal-close-btn {
+.modal.active .modal-close-btn, .modal-settings.active .modal-close-btn {
     color: #555;
     cursor: pointer;
     position: absolute;
     top: 5px;
-    right: 10px;
-    font-size:30px;
-    font-weight: 500;
+    right: 5px;
     border: none;
     background: none;
 }
+
+.modal-settings fieldset {
+    border: none;
+    display: flex;
+    padding: 0;
+}
+
+.modal-settings fieldset legend {
+    color: #2a1b40;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 38px -4px;
+}
+
+.modal-settings fieldset .fieldset-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-settings fieldset label {
+    display: block;
+    text-align: left;
+    margin-bottom: 7px;
+}
+
+.modal-settings fieldset input {
+    padding: 10px 10px;
+    border-radius: 10px;
+    border-style: solid;
+    width: 100%;
+    margin: 0px -10px;
+}
+
+.modal-settings fieldset div:last-child {
+    text-align: left;
+}
+
+.modal-settings fieldset button {
+    background: #b95a90;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 40px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 10px 0 0 -8px;
+    cursor: pointer;
+}
+
+
 

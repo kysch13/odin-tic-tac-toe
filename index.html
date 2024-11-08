@@ -30,12 +30,35 @@
         </div>
         <div class="actions">
             <button class="primary-btn" data-action="reset" type="button">Restart Game</button>
-            <button class="settings-btn" type="button"><img src="cog-box.svg" width="37" alt="Settings"></button>
+            <button class="settings-btn" data-action="settings" type="button"><img src="cog-box.svg" width="37" alt="Settings"></button>
         </div>
         <div class="modal">
             <div class="modal-window">
                 <div></div>
-                <button class="modal-close-btn" type="button">x</button>
+                <button class="modal-close-btn" type="button"><img src="close-box.svg" data-action="close" alt="Close" width="30"></button>
+            </div>
+        </div>
+        <div class="modal-settings">
+            <div class="modal-window">
+                <div>
+                    <form action="" method="post" id="user-data">
+                        <fieldset>
+                            <legend>Settings</legend>
+                            <div class="fieldset-inner">
+                                <div>
+                                    <label for="p2_name">Name of Player 1</label>
+                                    <input type="text" id="p1_name" name="p1_name" placeholder="Player 1">    
+                                </div>
+                                <div>
+                                    <label for="p2_name">Name of Player 2</label>
+                                    <input type="text" id="p2_name" name="p2_name" placeholder="Player 2">    
+                                </div>
+                            <div>
+                            <button type="button" data-action="save">Save</button>
+                        </fieldset>
+                    </form>
+                </div>
+                <button class="modal-close-btn" type="button"><img src="close-box.svg" alt="Close" data-action="close" width="30"></button>
             </div>
         </div>
     </div>

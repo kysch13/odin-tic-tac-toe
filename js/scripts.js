@@ -3,6 +3,7 @@ const gameBoard = (function () {
     const boardCells = document.querySelectorAll('.board-cell');
     const actionBar = document.querySelector('.actions');
     const modal = document.querySelector('.modal');
+    const modalSettings = document.querySelector('.modal-settings');
     const modalWindow = document.querySelector('.modal-window > div');
     const squares = [];
     const buildBoard = function () {
@@ -27,7 +28,7 @@ const gameBoard = (function () {
         gameProgress.currentPlayer[0] = 'x';
     }
 
-    return {squares, buildBoard, resetBoard, board, boardCells, modal, modalWindow, actionBar};
+    return {squares, buildBoard, resetBoard, board, boardCells, modal, modalWindow, actionBar, modalSettings};
 })();
 
 const gameProgress = (function () {
@@ -103,15 +104,27 @@ gameBoard.board.addEventListener('click', (e) => {
 
 gameBoard.modal.addEventListener('click', (e) => {
     console.log(e.target);
-    if (e.target.classList[0] == 'modal' || e.target.classList[0] == 'modal-close-btn') {
+    if (e.target.classList[0] == 'modal' || e.target.dataset.action == 'close') {
         gameBoard.modal.classList.remove('active');
+    }
+})
+
+gameBoard.modalSettings.addEventListener('click', (e) => {
+    console.log(e.target);
+    if (e.target.classList[0] == 'modal-settings' || e.target.dataset.action == 'close') {
+        gameBoard.modalSettings.classList.remove('active');
+    } else if (e.target.dataset.action == 'save') {
+        
     }
 })
 
 gameBoard.actionBar.addEventListener('click', (e) => {
     if (e.target.dataset.action == 'reset') {
         gameBoard.resetBoard();
+    } else if (e.target.dataset.action = 'settings') {
+        gameBoard.modalSettings.classList.add('active');
     }
+    
 })
 
 gameBoard.buildBoard();
